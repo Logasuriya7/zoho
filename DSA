@@ -1,0 +1,221 @@
+Rotate Array Without Extra Space || LeetCode #189 – Rotate Array || https://leetcode.com/problems/rotate-array/
+***********************************************************************************************************************************
+class Solution {
+    public void rotate(int[] nums, int k) 
+    {
+        k = k % nums.length;
+        System.out.println(k);
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k, nums.length-1);
+    }
+    public void reverse(int[] nums,int first, int last)
+    {
+        while(first < last)
+        {
+            int temp = nums[first];
+            nums[first] = nums[last];
+            nums[last] = temp;
+            first++;
+            last--;
+        }
+    }
+}
+
+
+
+
+class Solution {
+    public void rotate(int[] nums, int k) 
+    {
+        k = k % nums.length;
+        System.out.println(k);
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k, nums.length-1);
+    }
+    public void reverse(int[] nums,int first, int last)
+    {
+        while(first < last)
+        {
+            int temp = nums[first];
+            nums[first] = nums[last];
+            nums[last] = temp;
+            first++;
+            last--;
+        }
+    }
+}
+************************************************************************************************************************************
+Find Missing Number in Range 1..n  || LeetCode #268 – Missing Number  || https://leetcode.com/problems/missing-number/
+(Zoho often expects you to solve it with the sum formula method, not XOR unless you know both)
+
+class Solution {
+    public int missingNumber(int[] nums) 
+    {
+        int sum = 0;
+        int expect_sum = 0;
+        int ans = 0;
+        for(int i=0 ;i<nums.length; i++)
+        {
+            sum = sum + nums[i];
+        }
+        expect_sum = nums.length * (nums.length+1) / 2;
+
+        return ans = expect_sum - sum;
+    }
+}
+
+
+
+
+
+
+class Solution {
+    public int missingNumber(int[] nums) 
+    {
+        int sum = 0;
+        int expect_sum = 0;
+        int ans = 0;
+        for(int i=0 ;i<nums.length; i++)
+        {
+            sum = sum + nums[i];
+        }
+        expect_sum = nums.length * (nums.length+1) / 2;
+
+        return ans = expect_sum - sum;
+    }
+}
+
+*************************************************************************************************************************************
+Leaders in an Array  || No direct LeetCode equivalent, but similar to:  ||  LeetCode #1451 – Rearrange Words in a Sentence (only for order logic)  ||  GFG Problem: “Leaders in an array” → https://www.geeksforgeeks.org/leaders-in-an-array/
+
+
+this is not optimal solution, it is a brutefore method with timecomplexity ofO(n^2)
+***********************************************************************************
+import java.util.*;
+public class zoho {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        int nums[] = new int[n];
+        int index = 0;
+        for(int i=0; i<n; i++)
+        {
+            nums[i] = input.nextInt();
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        index = finding(nums, 0, n);
+        result.add(nums[index]);
+        while(index != n-1)
+        {
+            index = finding(nums,index + 1,n);
+            result.add(nums[index]);
+        }
+        System.out.println(result);
+    }
+    public static int finding(int[] nums, int start, int end)
+    {
+        int index =  0;
+        int max = Integer.MIN_VALUE;
+        for(int i=start; i<end; i++)
+        {
+            if(nums[i] > max)
+            {
+                max = nums[i];
+                index = i;
+            }
+        }
+        return index;
+    } 
+}
+
+*****************************************************************************************************************************Rearrange Array in Max-Min Form
+No direct LeetCode problem, but similar logic appears in:  || LeetCode #324 – Wiggle Sort II  ||  GFG: “Rearrange array alternatively” → https://www.geeksforgeeks.org/rearrange-array-alternately/
+
+Rearrange array alternatively
+*******************************
+
+import java.util.Arrays;
+
+class Solution {
+    public void wiggleSort(int[] nums) {
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+        int[] arr = new int[nums.length];
+        int count = 0;
+
+        while (left <= right) {
+            if (count < nums.length) {
+                arr[count++] = nums[left++];
+            }
+            if (count < nums.length) {
+                arr[count++] = nums[right--];
+            }
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = arr[i];
+        }
+    }
+
+
+leetcode 324
+****************
+
+import java.util.Arrays;
+
+class Solution {
+    public void wiggleSort(int[] nums) {
+        Arrays.sort(nums);
+        int left = (nums.length-1)/2;
+        int right = nums.length - 1;
+        int[] arr = new int[nums.length];
+
+        for(int i=0; i<nums.length; i++)
+        {
+            if(i % 2  == 0)
+            {
+                arr[i] = nums[left--];
+            }
+            else
+            {
+                arr[i] = nums[right--];
+            }
+        }
+
+        for(int i=0; i<nums.length; i++)
+        {
+            nums[i] = arr[i];
+        }
+
+       
+    }
+}
+
+
+
+
+
+class Solution(object):
+    def wiggleSort(self, nums):
+       nums.sort()
+       n = len(nums)
+       right = n-1
+       left = (n-1)//2
+       arr = [0]*n
+
+       for i in range(n):
+        if i % 2==0:
+            arr[i] = nums[left]
+            left-=1
+        else:
+            arr[i] = nums[right]
+            right-=1
+        
+       for i in range(n):
+        nums[i] = arr[i]
+        
+**********************************************************************************************************************************
