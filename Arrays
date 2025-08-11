@@ -219,3 +219,57 @@ class Solution(object):
         nums[i] = arr[i]
         
 **********************************************************************************************************************************
+
+Find Subarray with Given Sum (Sliding Window)  || LeetCode #209 – Minimum Size Subarray Sum
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) 
+    { 
+        int start = 0;
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+
+        for(int end = 0; end<nums.length; end++)
+        {
+            sum += nums[end];
+
+            while(sum >= target && start < nums.length)
+            {
+                if(end+1 - start < min)
+                {
+                    min = end+1 - start;
+                }
+                sum-=nums[start];
+                start++;
+            }
+        }
+        if(min == Integer.MAX_VALUE)
+        {
+            return 0;
+        }
+        return min;
+
+    }
+}
+
+
+
+
+
+
+class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        n = len(nums)
+        left = 0
+        sum1 = 0
+        min1 = float('inf')
+
+        for right in range(n):
+            sum1 += nums[right]  
+            while sum1 >= target:
+                min1 = min(min1, right - left + 1)
+                sum1 -= nums[left]
+                left += 1
+
+        return 0 if min1 == float('inf') else min1
+***********************************************************************************************************************************************
