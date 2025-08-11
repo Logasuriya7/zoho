@@ -1,0 +1,271 @@
+ 
+1. Reverse each word without using split() / reverse()
+Problem:
+Given a string, reverse the characters of each word while keeping the word order the same. Do not use built-in split() or reverse().
+
+Example:
+Input: "Hello World"
+Output: "olleH dlroW"
+
+LeetCode: 557. Reverse Words in a String III
+
+solution
+*********
+
+brute forece
+**************
+
+class Solution(object):
+    def reverseWords(self, s):
+        end = 0
+        start =  0
+        ans = ""
+
+        while end<len(s):
+            while end < len(s) and s[end] != ' ':
+                end+=1
+            i = end-1
+            while(start<=i):
+                ans += s[i]
+                i-=1
+            if(end < len(s)):
+                ans+=' '
+            
+            end = end+1
+            start = end
+        return ans 
+
+
+
+optimised
+***********
+
+class Solution {
+    public String reverseWords(String s) 
+    {
+        char[] arr = s.toCharArray();
+        int start = 0;
+        int end = 0;
+        int i = 0;
+        while(end < s.length())
+        {
+            while(end < s.length() && arr[end] != ' ')
+            {
+            end++;
+            }
+            i = end-1;
+            while(i>=start)
+            {
+              char temp = arr[start];
+              arr[start] = arr[i];
+              arr[i] = temp;
+              i--;
+              start++; 
+            }
+            end++;
+            start = end;
+        }
+       
+        String ans = new String(arr);
+        return ans;
+    }
+
+}
+
+
+
+
+**************************************************************************************************************************************************
+Check palindrome (ignore spaces & special chars)
+Problem:
+Check if the given string is a palindrome, ignoring spaces, punctuation, and case.
+
+Example:
+Input: "A man, a plan, a canal: Panama"
+Output: true
+LeetCode: 125. Valid Palindrome
+
+
+
+class Solution(object):
+    def isPalindrome(self, s):
+        clean = re.sub(r'[^A-Za-z0-9]','',s)
+        clean = clean.lower()
+        start = 0
+        end = len(clean)-1
+
+        while(start<=end):
+            if(clean[start] != clean[end]):
+                return False
+            start+=1
+            end-=1
+        return True
+
+
+
+class Solution {
+    public boolean isPalindrome(String s) 
+    {
+        int start = 0; 
+        String str = s.replaceAll("[^A-Za-z0-9]","");
+        str = str.toLowerCase();
+        System.out.println(str);
+        char[] arr = str.toCharArray();
+        int end = arr.length-1;
+        while(start < end)
+        {
+            if(arr[start] != arr[end])
+            {
+                return false;
+            }
+            start++;
+            end--;
+        }
+       return true;
+    }
+}
+
+***********************************************************************************************************************************************
+
+3. Remove duplicate characters
+Problem:
+Remove all duplicate characters from the given string, keeping only the first occurrence of each character.
+
+Example:
+Input: "programming"
+Output: "progamin"
+
+
+def removeduplicates(s):
+    seen = set()
+    result = []
+    for i in s:
+        if i not in seen:
+            seen.add(i)
+            result.append(i)
+        
+    mystr = "".join(result)
+    print(mystr)
+    
+    
+removeduplicates("programming")
+
+
+
+
+
+
+
+
+import java.util.*;
+class Main {
+    public static void main(String[] args) 
+    {
+        System.out.println(ans("programming"));
+    }
+    public static String ans(String s)
+    {
+        StringBuilder ans = new StringBuilder();
+        Set<Character> seen = new LinkedHashSet<>();
+        char[] a = s.toCharArray();
+        for(char i : a)
+        {
+            if(!seen.contains(i))
+            {
+                seen.add(i);
+                ans.append(i);
+            }
+        }
+        return ans.toString();
+    }
+}
+***************************************************************************************************************************************************
+
+4. Implement indexOf() manually
+Problem:
+Given two strings haystack and needle, return the index of the first occurrence of needle in haystack, or -1 if not found.
+
+Example:
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+
+LeetCode: 28. Find the Index of the First Occurrence in a String
+
+
+
+class Solution {
+    public int strStr(String haystack, String needle) 
+    {
+        int n = haystack.length();
+        int m = needle.length();
+        boolean check = false;
+        for(int i=0; i<= n-m; i++)
+        {
+            for(int j=0; j<m; j++)
+            {
+                if(haystack.charAt(i+j) == needle.charAt(j))
+               {
+                    check = true;
+               }
+                else
+                {
+                    check = false;
+                    break;
+                }
+            }
+            if(check == true)
+            {
+                return i;
+            }
+        }    
+        return -1;
+    }
+}
+
+
+
+
+
+class Solution(object):
+    def strStr(self, haystack, needle):
+        n = len(haystack)
+        m = len(needle)
+        count = 0
+        for i in range(n-m+1):
+            for j in range(m):
+                if(haystack[i+j] == needle[j]):
+                    count+=1
+                else:
+                    break
+            if(count == m):
+                return i
+            count = 0
+
+        return -1
+
+***********************************************************************************************************************************************
+
+5. Find first non-repeating character
+Problem:
+Return the index of the first character in a string that does not repeat. If it doesn't exist, return -1.
+
+Example:
+Input: "leetcode"
+Output: 0
+LeetCode: 387. First Unique Character in a String
+
+brute force method
+******************
+class Solution(object):
+    def firstUniqChar(self, s):
+        check = False
+        for i in range(len(s)):
+            check = False
+            for j in range(len(s)):
+                if(i!=j and s[i] == s[j]):
+                    check = True
+                    break
+            if check == False:
+                return i
+        return -1
+
