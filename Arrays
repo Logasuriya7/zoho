@@ -313,5 +313,48 @@ class Solution {
     }
 }
 
+
+
+
+without extra space
+********************
+
+class Solution {
+    public void moveZeroes(int[] nums) 
+    {
+        int count = 0;
+        for(int num : nums)
+        {
+            if(num != 0)
+            {
+               nums[count++] = num; 
+            }
+        }
+        while(count < nums.length)
+        {
+            nums[count++] = 0;
+        }  
+    }
+}
+
+
+
+
+
+class Solution(object):
+    def moveZeroes(self, nums):
+      count = 0
+
+      for i in range(len(nums)):
+        if nums[i] != 0:
+            nums[count] = nums[i]
+            count+=1
+      while count < len(nums):
+        nums[count] = 0
+        count+=1
+
+
+
+
 **************************************************************************************************************************************************
                                                                   Thank you
