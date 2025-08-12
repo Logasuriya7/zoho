@@ -269,3 +269,129 @@ class Solution(object):
                 return i
         return -1
 
+
+
+optimized
+***********
+
+class Solution(object):
+    def firstUniqChar(self, s):
+        dic = {}
+        for ch in s:
+            dic[ch] = dic.get(ch,0)+1
+        for i, ch in enumerate(s):
+            if dic[ch]==1:
+                return i
+
+        return -1
+        
+
+
+
+
+class Solution {
+    public int firstUniqChar(String s) 
+    {
+        Map<Character, Integer> ans = new HashMap<>();
+
+        for(int i=0; i<s.length(); i++)
+        {
+            char ch = s.charAt(i);
+            ans.put(ch, ans.getOrDefault(ch,0)+1);
+        }    
+        for(int i=0; i<s.length(); i++)
+        {
+            if(ans.get(s.charAt(i)) == 1)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+
+***************************************************************************************************************************************************
+
+6. Count vowels & consonants
+Problem:
+Count the number of vowels and consonants in the given string. Ignore digits, spaces, and special characters.
+
+Example:
+Input: "Hello World"
+Output: Vowels = 3, Consonants = 7
+LeetCode (similar vowel task): 345. Reverse Vowels of a String
+
+
+class Solution {
+    public String reverseVowels(String s) 
+    {
+        int start = 0;
+        int end = s.length()-1;
+        String ans;
+        Set<Character> vov = new HashSet<>();
+        vov.add('a');
+        vov.add('e');
+        vov.add('i');
+        vov.add('o');
+        vov.add('u');
+        vov.add('A');
+        vov.add('E');
+        vov.add('U');
+        vov.add('I');
+        vov.add('O');
+
+        char[] letter = s.toCharArray();
+        while(start < end)
+        {
+            while(start < end && !vov.contains(letter[start]))
+            {
+                start++;
+            }
+            while(start < end && !vov.contains(letter[end]))
+            {
+                end--;
+            }
+
+            char temp = letter[start];
+            letter[start] = letter[end];
+            letter[end] = temp;
+            start++;
+            end--;
+        }
+        return new String(letter);
+
+    }
+
+}
+
+
+
+class Solution(object):
+    def reverseVowels(self, s):
+        vov = {'a','e','i','o','u','A','E','I','O','U'}
+        ans = list(s)
+        start = 0
+        end = len(s)-1
+        while start < end:
+            while start < end and s[start] not in vov:
+                start+=1
+            while start < end and s[end] not in vov:
+                end-=1
+
+            ans[start], ans[end] = ans[end], ans[start]
+            start+=1
+            end-=1
+        return "".join(ans)
+
+
+****************************************************************************************************************************************************
+                                                         thankyou
+
+
+
+
+
+
+
+
