@@ -1,0 +1,192 @@
+73. Set Matrix Zeroes
+
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+You must do it in place.
+**************************************************************************************************************************************************************************
+
+Brute Force Method
+******************
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        for(int m=0; m < matrix.length; m++){
+            for(int n=0; n < matrix[m].length; n++){
+                if(matrix[m][n] == 0){
+                    column(n, matrix);
+                    row(m, matrix);
+                }
+            }
+        }
+
+         for(int m=0; m < matrix.length; m++){
+            for(int n=0; n < matrix[m].length; n++){
+                if(matrix[m][n] == -69){
+                    matrix[m][n]=0;
+                }
+            }
+        }
+        
+    }
+    public int[][] row(int rows, int[][] matrix){
+        for(int row = 0; row < matrix[rows].length; row++){
+            if(matrix[rows][row] != 0){
+                matrix[rows][row]= -69;
+            }
+        }
+        return matrix;
+    }
+     public int[][] column(int cols, int[][] matrix){
+        for(int col = 0; col < matrix.length; col++){
+            if(matrix[col][cols] != 0){
+                matrix[col][cols] = -69;
+            }
+        }
+        return matrix;
+    }
+}
+
+
+Best Solution
+**************
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int[] row = new int[matrix.length];
+        int[] col = new int[matrix[0].length];
+
+        for(int m=0; m<matrix.length;m++){
+            for(int n=0; n<matrix[0].length; n++){
+                if(matrix[m][n] == 0)
+                {
+                    row[m] = 1;
+                    col[n] = 1;
+                }
+            }
+        }
+
+        for(int i=0; i<row.length; i++){
+            if(row[i] == 1){
+                for(int c=0; c<matrix[0].length; c++){
+                    matrix[i][c] = 0;
+                }
+            }
+        }
+
+         for(int i=0; i<col.length; i++){
+            if(col[i] == 1){
+                for(int r=0; r<matrix.length; r++){
+                    matrix[r][i] = 0;
+                }
+            }
+        }
+    }
+}
+
+****************************************************************************************************************************************************************************
+289. Game of Life
+*****************
+According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+
+The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+
+Any live cell with fewer than two live neighbors dies as if caused by under-population.
+Any live cell with two or three live neighbors lives on to the next generation.
+Any live cell with more than three live neighbors dies, as if by over-population.
+Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+The next state of the board is determined by applying the above rules simultaneously to every cell in the current state of the m x n grid board. In this process, births and deaths occur simultaneously.
+
+Given the current state of the board, update the board to reflect its next state.
+
+Note that you do not need to return anything.
+
+optimized solution
+******************
+
+class Solution {
+    public void gameOfLife(int[][] board) {
+
+
+        for(int m=0; m<board.length; m++){
+            for(int n=0; n<board[0].length; n++){
+                int count = 0;
+
+                if(m<board.length -1 && Math.abs(board[m+1][n]) == 1){
+                    count++;
+                }
+                if(m > 0 && Math.abs(board[m-1][n]) == 1){
+                    count++;
+                }
+                if(n<board[0].length -1 && Math.abs(board[m][n+1]) == 1){
+                    count++;
+                }
+                if(n > 0 && Math.abs(board[m][n-1]) == 1){
+                    count++;
+                }
+                if(n<board[0].length -1 && m < board.length -1 && Math.abs(board[m+1][n+1]) == 1){
+                    count++;
+                }
+                if(m > 0 && n > 0 && (Math.abs(board[m-1][n-1]) == 1)){
+                    count++;
+                }
+                 if(n < board[0].length -1 && m > 0 && Math.abs(board[m-1][n+1]) == 1){
+                    count++;
+                }
+                if(m < board.length -1 && n > 0 && Math.abs(board[m+1][n-1])  == 1){
+                    count++;
+                }
+
+                if(board[m][n] == 1 &&(count > 3 || count < 2)){
+                    board[m][n] = -1;
+                }
+                if(board[m][n]==0 && count == 3){
+                    board[m][n] = 2;
+                }
+            }
+        }
+
+         for(int m=0; m<board.length; m++){
+            for(int n=0; n<board[0].length; n++){
+                if(board[m][n] == -1){
+                    board[m][n] = 0;
+                }
+                 if(board[m][n] == 2){
+                    board[m][n] = 1;
+                }
+            }
+         }
+    }
+}
+
+**************************************************************************************************************************************************************************
+48. Rotate Image
+****************
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+Optimized
+**********
+class Solution {
+    public void rotate(int[][] matrix) {
+        
+        int l = matrix.length-1;
+        for(int i=0; i<=l-1; i++){
+            for(int j=i+1; j<=l; j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] =  temp;
+            }
+        }
+       for(int i = 0; i < matrix.length; i++){
+           for(int j = 0; j < matrix.length/2; j++){
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[i][matrix.length-1 -j];
+            matrix[i][matrix.length-1 -j] = temp;
+        }
+
+       }
+
+    }
+}
